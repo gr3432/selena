@@ -9,9 +9,9 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from webdriver_manager.chrome import ChromeDriverManager
 
-import time
 
 timeout = 10
+
 
 @pytest.fixture(scope="module")
 def chrome_driver():
@@ -40,9 +40,6 @@ def test_foo(driver):
     condition = lambda driver: driver.find_element(By.XPATH, promotions_locator)
     promotions_link = WebDriverWait(driver, timeout=timeout).until(condition)
     promotions_link.click()
-    time.sleep(5)
-    page = driver.page_source
-    print(page.encode('utf-8'))
     heading_locator = "//h1[@id='page-title-heading']//span"
     condition = lambda driver: driver.find_element(By.XPATH, heading_locator)
     heading = WebDriverWait(driver, timeout=timeout).until(condition)

@@ -42,8 +42,7 @@ def test_foo(driver):
     settings_link.click()
     time.sleep(5)
     page = driver.page_source
-    page.encode('utf-8')
-    print(page)
+    print(page.encode('utf-8'))
     cookies_pref_locator = "//a[@href='/settings/cookie_preferences']"
     condition = lambda driver: driver.find_element(By.XPATH, cookies_pref_locator)
     cookies_pref = WebDriverWait(driver, timeout=timeout).until(condition)

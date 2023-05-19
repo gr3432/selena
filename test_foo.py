@@ -9,6 +9,7 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from webdriver_manager.chrome import ChromeDriverManager
 
+import time
 
 timeout = 10
 
@@ -39,6 +40,8 @@ def test_foo(driver):
     condition = lambda driver: driver.find_element(By.XPATH, settings_locator)
     settings_link = WebDriverWait(driver, timeout=timeout).until(condition)
     settings_link.click()
+    time.sleep(5)
+    page = driver.page_source
     cookies_pref_locator = "//a[@href='/settings/cookie_preferences']"
     condition = lambda driver: driver.find_element(By.XPATH, cookies_pref_locator)
     cookies_pref = WebDriverWait(driver, timeout=timeout).until(condition)

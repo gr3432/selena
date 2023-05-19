@@ -1,7 +1,9 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.edge.options import Options as EdgeOptions
 from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
@@ -12,13 +14,17 @@ timeout = 10
 
 @pytest.fixture(scope="module")
 def chrome_driver():
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    options = ChromeOptions()
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
     yield driver
     driver.quit()
 
 @pytest.fixture(scope="module")
 def edge_driver():
-    driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+    options = EdgeOptions()
+    options.add_argument("--headless")
+    driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()), options=options)
     yield driver
     driver.quit()
 

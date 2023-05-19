@@ -35,16 +35,16 @@ def driver(request):
 
 
 def test_foo(driver):
-    driver.get("https://twitter.com")
-    settings_locator = "//header//*//a[@aria-label='Settings']"
-    condition = lambda driver: driver.find_element(By.XPATH, settings_locator)
-    settings_link = WebDriverWait(driver, timeout=timeout).until(condition)
-    settings_link.click()
+    driver.get("https://magento.softwaretestingboard.com/")
+    promotions_locator = "//a[.//*//strong[text()='20% OFF']]"
+    condition = lambda driver: driver.find_element(By.XPATH, promotions_locator)
+    promotions_link = WebDriverWait(driver, timeout=timeout).until(condition)
+    promotions_link.click()
     time.sleep(5)
     page = driver.page_source
     print(page.encode('utf-8'))
-    cookies_pref_locator = "//a[@href='/settings/cookie_preferences']"
-    condition = lambda driver: driver.find_element(By.XPATH, cookies_pref_locator)
-    cookies_pref = WebDriverWait(driver, timeout=timeout).until(condition)
-    assert "Cookie" in cookies_pref.text
+    heading_locator = "//h1[@id='page-title-heading']//span"
+    condition = lambda driver: driver.find_element(By.XPATH, heading_locator)
+    heading = WebDriverWait(driver, timeout=timeout).until(condition)
+    assert "Pants" in heading.text
 

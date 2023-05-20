@@ -49,4 +49,10 @@ def test_leave_first_name_empty(page):
     reset_profile_details_page(page)
     assert page.get_first_name_text() == "Adam"
 
+@pytest.mark.parametrize("name", ["A"])
+def test_invalid_first_names(page, name):
+    page.edit_profile()
+    page.edit_first_name(name)
+    page.save_profile()
+    assert page.get_first_name_text() == "Adam"
     

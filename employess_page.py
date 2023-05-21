@@ -5,6 +5,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 
+TIMEOUT = 5
+
+
 class Locators:
     employees_list_header = (By.XPATH, "//app-employees-list/app-view-base-layout/div/app-view-header/div/app-page-header/div/div/div[1]/h2")
     search_input = (By.XPATH, "//input[@placeholder='Enter keyword to search...']")
@@ -18,7 +21,7 @@ class Employees:
         self.driver = driver
 
     def get_employees_list_header(self):
-        employees_list_header = WebDriverWait(self.driver, 5).until(
+        employees_list_header = WebDriverWait(self.driver, TIMEOUT).until(
             lambda driver: driver.find_element(*Locators.employees_list_header))
         return employees_list_header.text
 
@@ -32,7 +35,7 @@ class Employees:
         table_xpath = Locators.table[1]
         row_based_on_name_locator = (By.XPATH, f"{table_xpath}/mat-row[./mat-cell[2]/span[text()='{name}']]")
         try:
-            rows = WebDriverWait(self.driver, 5).until(
+            rows = WebDriverWait(self.driver, TIMEOUT).until(
                 EC.presence_of_all_elements_located(row_based_on_name_locator))
             return rows
         except TimeoutException:

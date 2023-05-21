@@ -3,7 +3,6 @@ import pytest
 from left_navigation_bar import LeftNavigationBar
 
 
-search_wait = 2
 existing_name = "Adam"
 non_existing_name = "Bob"
 

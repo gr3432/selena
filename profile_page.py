@@ -3,7 +3,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-# TODO define constant for the timeouts
+
+TIMEOUT = 5
+
 
 class Locator():
     edit_profile_button = (By.XPATH, "//app-profile-details-info-card//app-details-info-card//div//div//button")
@@ -26,7 +28,7 @@ class Profile:
         profile_details_button.click()
 
     def get_profile_details_header(self):
-        profile_details_header = WebDriverWait(self.driver, 5).until(
+        profile_details_header = WebDriverWait(self.driver, TIMEOUT).until(
             lambda driver: driver.find_element(*Locator.profile_details_header))
         return profile_details_header.text
 
@@ -36,7 +38,7 @@ class Profile:
         organization_unit_button.click()
         
     def get_organization_unit_header(self):
-        organization_unit_header = WebDriverWait(self.driver, 5).until(
+        organization_unit_header = WebDriverWait(self.driver, TIMEOUT).until(
             lambda driver: driver.find_element(*Locator.organization_unit_header))
         return organization_unit_header.text
     
@@ -46,13 +48,13 @@ class Profile:
         edit_profile_button.click()
 
     def get_first_name_text(self):
-        first_name_text = WebDriverWait(self.driver, 5).until(
+        first_name_text = WebDriverWait(self.driver, TIMEOUT).until(
             lambda driver: driver.find_element(*Locator.first_name_text))
         return first_name_text.text
 
     def edit_first_name(self, name):
         self.edit_profile()
-        input_field = WebDriverWait(self.driver, 5).until(
+        input_field = WebDriverWait(self.driver, TIMEOUT).until(
             lambda driver: driver.find_element(*Locator.first_name_input))
         input_field.clear()
         input_field.send_keys(name) 
@@ -60,7 +62,7 @@ class Profile:
     def save_profile(self):
         # clickable means also enabled
         try:
-            save_profile_button = WebDriverWait(self.driver, 5).until(
+            save_profile_button = WebDriverWait(self.driver, TIMEOUT).until(
                 EC.element_to_be_clickable(Locator.save_profile_button))
             save_profile_button.click()
             return True

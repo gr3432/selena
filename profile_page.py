@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 # TODO define constant for the timeouts
 
@@ -58,8 +59,12 @@ class Profile:
     
     def save_profile(self):
         # clickable means also enabled
-        save_profile_button = WebDriverWait(self.driver, 5).until(
-            EC.element_to_be_clickable(Locator.save_profile_button))
-        save_profile_button.click()
+        try:
+            save_profile_button = WebDriverWait(self.driver, 5).until(
+                EC.element_to_be_clickable(Locator.save_profile_button))
+            save_profile_button.click()
+            return True
+        except TimeoutException:
+            return False
     
 

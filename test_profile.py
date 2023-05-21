@@ -1,7 +1,6 @@
 from profile_page import Profile
 import time
 import pytest
-from selenium.common.exceptions import TimeoutException
 
 
 # Helpers
@@ -37,15 +36,14 @@ def page(driver):
 def test_edit_first_name(page, name):
     page.edit_profile()
     page.edit_first_name(name)
-    page.save_profile()
+    assert page.save_profile()
     assert page.get_first_name_text() == name
 
 def test_leave_first_name_empty(page):
     page.edit_profile()
     page.edit_first_name("")
     time.sleep(2)
-    with pytest.raises(TimeoutException):
-        page.save_profile()
+    assert not page.save_profile()
     reset_profile_details_page(page)
     assert page.get_first_name_text() == "Adam"
 
@@ -53,6 +51,6 @@ def test_leave_first_name_empty(page):
 def test_invalid_first_names(page, name):
     page.edit_profile()
     page.edit_first_name(name)
-    page.save_profile()
+    assert page.save_profile()
     assert page.get_first_name_text() == "Adam"
     

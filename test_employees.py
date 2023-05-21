@@ -12,25 +12,16 @@ non_existing_name = "Bob"
 def page(driver):
     employees_page = Employees(driver)
     yield employees_page
-    employees_page.search_input.clear()
+    employees_page.search("")
 
 def test_search_existing(page):
-    page.search_input.clear()
     page.search(existing_name)
-    time.sleep(search_wait)
-    names = page.get_employee_names()
-    assert existing_name in names
+    assert page.find_name_in_table(existing_name)
 
 def test_search_not_existing(page):
-    page.search_input.clear()
     page.search(non_existing_name)
-    time.sleep(search_wait)
-    names = page.get_employee_names()
-    assert not(non_existing_name in names)
+    assert not page.find_name_in_table(non_existing_name)
 
 def test_search_empty(page):
-    page.search_input.clear()
     page.search("")
-    time.sleep(search_wait)
-    names = page.get_employee_names()
-    assert existing_name in names
+    assert page.find_name_in_table(existing_name)

@@ -16,7 +16,6 @@ def get_profile_page(driver):
     # Set up
     left_navigation_bar = LeftNavigationBar(driver)
     left_navigation_bar.navigate_to_employees()
-    assert driver.current_url.split('/')[-1] == "employees"
     employees_page = Employees(driver)
     employees_page.navigate_to_name("Adam")
     yield

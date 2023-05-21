@@ -26,7 +26,8 @@ class Employees:
         return employees_list_header.text
 
     def search(self, query):
-        search_input = self.driver.find_element(*Locators.search_input)
+        search_input = WebDriverWait(self.driver, TIMEOUT).until(
+            lambda driver: driver.find_element(*Locators.search_input))
         search_input.clear()
         search_input.send_keys(query)
         search_input.send_keys(Keys.RETURN) # needed?

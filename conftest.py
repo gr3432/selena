@@ -24,7 +24,8 @@ def driver_already_opened():
 def driver_with_login():
     service = Service(EdgeChromiumDriverManager().install())
     driver = webdriver.Edge(service=service)
-    
+
+    driver.maximize_window()
     driver.get(login_page_url)
 
     login_page = Login(driver)

@@ -43,8 +43,8 @@ class Profile:
         return organization_unit_header.text
     
     def edit_profile(self):
-        edit_profile_button = self.driver.find_element(
-            *Locator.edit_profile_button)
+        edit_profile_button = WebDriverWait(self.driver, TIMEOUT).until(
+            EC.element_to_be_clickable(Locator.edit_profile_button))
         edit_profile_button.click()
 
     def get_first_name_text(self):
@@ -53,7 +53,6 @@ class Profile:
         return first_name_text.text
 
     def edit_first_name(self, name):
-        self.edit_profile()
         input_field = WebDriverWait(self.driver, TIMEOUT).until(
             lambda driver: driver.find_element(*Locator.first_name_input))
         input_field.clear()

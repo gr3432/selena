@@ -1,15 +1,23 @@
 from employess_page import Employees
 import time
 import pytest
+from left_navigation_bar import LeftNavigationBar
 
 # TODO replace time.sleep(search_wait) with wait-until-search-returns
 search_wait = 2
 existing_name = "Adam"
 non_existing_name = "Bob"
 
+@pytest.fixture(scope="module")
+def get_employees_page(driver):
+    left_navigation_bar = LeftNavigationBar(driver)
+    left_navigation_bar.navigate_to_employees()
+    yield
+    left_navigation_bar.navigate_to_dashboard()
+    assert driver.current_url.split('/')[-1] == "dashboard"
 
-@pytest.fixture
-def page(driver):
+@pytest.fixture(scope="function")
+def page(driver, get_employees_page):
     employees_page = Employees(driver)
     yield employees_page
     employees_page.search("")

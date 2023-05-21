@@ -1,15 +1,10 @@
 from profile_page import Profile
 import time
 import pytest
+from left_navigation_bar import LeftNavigationBar
+from employess_page import Employees
 
 
-# Helpers
-def check_personnummer(number):
-    digits = [int(c) for c in reversed(number) if c.isdigit()]
-    if len(digits) != 10:
-        return False
-    even_digits = [d if d < 5 else d - 9 for d in digits[1::2]]
-    return sum(digits + even_digits) % 10 == 0
 
 def reset_profile_details_page(page):
     page.view_organization_unit()
@@ -18,13 +13,25 @@ def reset_profile_details_page(page):
     page.get_profile_details_header()
     assert page.get_profile_details_header() == "PROFILE DETAILS"
 
+@pytest.fixture(scope="module")
+def get_profile_page(driver):
+    # Set up
+    left_navigation_bar = LeftNavigationBar(driver)
+    left_navigation_bar.navigate_to_employees()
+    assert driver.current_url.split('/')[-1] == "employees"
+    employees_page = Employees(driver)
+    employees_page.navigate_to_name("Adam")
+    yield
+    # Tear down
+    left_navigation_bar.navigate_to_dashboard()
+    assert driver.current_url.split('/')[-1] == "dashboard"
 
-@pytest.fixture
-def page(driver):
+@pytest.fixture(scope="function")
+def page(driver, get_profile_page):
     # Set up
     profile_page = Profile(driver)
     # make sure current page is profile page
-    reset_profile_details_page(profile_page)
+    assert profile_page.get_profile_details_header() == "PROFILE DETAILS"
     yield profile_page
     # Tear down
     # in case something went wrong with the test

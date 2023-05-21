@@ -37,6 +37,11 @@ class Employees:
             return rows
         except TimeoutException:
             return []
+        
+    def navigate_to_name(self, name):
+        names = self.find_name_in_table(name)
+        assert len(names) == 1
+        names[0].click()
     
     def get_employee_names(self):
         return [name.text for name in self.driver.find_elements(By.XPATH, Locators.result_table_names)]

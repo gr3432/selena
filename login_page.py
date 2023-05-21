@@ -20,7 +20,8 @@ class Login:
         self.driver = driver
 
     def select_ID_login(self):
-        ID_login_button = self.driver.find_element(*Locators.ID_login_button)
+        ID_login_button = WebDriverWait(self.driver, TIMEOUT).until(
+            EC.element_to_be_clickable(Locators.ID_login_button))
         ID_login_button.click()
 
     def input_email(self, email):

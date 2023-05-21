@@ -1,12 +1,12 @@
 from employess_page import Employees
-import time
 import pytest
 from left_navigation_bar import LeftNavigationBar
 
-# TODO replace time.sleep(search_wait) with wait-until-search-returns
+
 search_wait = 2
 existing_name = "Adam"
 non_existing_name = "Bob"
+
 
 @pytest.fixture(scope="module")
 def get_employees_page(driver):
@@ -21,6 +21,7 @@ def page(driver, get_employees_page):
     employees_page = Employees(driver)
     yield employees_page
     employees_page.search("")
+
 
 def test_search_existing(page):
     page.search(existing_name)

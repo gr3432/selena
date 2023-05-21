@@ -4,7 +4,6 @@ from left_navigation_bar import LeftNavigationBar
 from employess_page import Employees
 
 
-
 def reset_profile_details_page(page):
     page.view_organization_unit()
     assert page.get_organization_unit_header() == "ORGANIZATION UNIT"
@@ -36,6 +35,7 @@ def page(driver, get_profile_page):
     # in case something went wrong with the test
     # replace with page refresh when cookies work
     reset_profile_details_page(profile_page)
+
 
 # last name should always be the existing name so the test does not change data
 @pytest.mark.parametrize("name", ["Björn", "Mary-Kate", "Adam"])

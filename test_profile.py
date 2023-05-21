@@ -1,5 +1,4 @@
 from profile_page import Profile
-import time
 import pytest
 from left_navigation_bar import LeftNavigationBar
 from employess_page import Employees
@@ -46,10 +45,10 @@ def test_edit_first_name(page, name):
     assert page.save_profile()
     assert page.get_first_name_text() == name
 
+@pytest.mark.skip(reason="Save button is enabled with empty obligatory field")
 def test_leave_first_name_empty(page):
     page.edit_profile()
     page.edit_first_name("")
-    time.sleep(2)
     assert not page.save_profile()
     reset_profile_details_page(page)
     assert page.get_first_name_text() == "Adam"

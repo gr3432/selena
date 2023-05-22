@@ -10,7 +10,7 @@ TIMEOUT = 10
 
 class Locator():
     edit_profile_button = (By.XPATH, "//app-profile-details-info-card//app-details-info-card//div//div//button")
-    first_name_input = (By.XPATH, "//app-text-input//*//input")
+    first_name_input = (By.XPATH, "//app-profile-details-info-card/app-details-info-card/div/div[2]/div/app-profile-details-form/div[1]/app-text-input[1]/mat-form-field/div/div[1]/div[3]/input")
     first_name_text = (By.XPATH, "//app-profile-details-info-card/app-details-info-card/div/div[2]/div/app-profile-details-form/div[1]/app-text-input[1]/div[2]")
     save_profile_button = (By.XPATH, "//div//button[span[text()='Save']]")
     profile_details_button = (By.XPATH, "//app-tabs-left-group/ul/li[1]/a")
@@ -26,7 +26,9 @@ class Profile:
     def view_profile_details(self):
         profile_details_button = WebDriverWait(self.driver, TIMEOUT).until(
             EC.element_to_be_clickable(Locator.profile_details_button))
-        profile_details_button.click()
+        actions = ActionChains(self.driver)
+        actions.move_to_element(profile_details_button).click().perform()
+        #profile_details_button.click()
 
     def get_profile_details_header(self):
         profile_details_header = WebDriverWait(self.driver, TIMEOUT).until(
@@ -36,7 +38,8 @@ class Profile:
     def view_organization_unit(self):
         organization_unit_button = WebDriverWait(self.driver, TIMEOUT).until(
             EC.element_to_be_clickable(Locator.organization_unit_button))
-        organization_unit_button.click()
+        actions = ActionChains(self.driver)
+        actions.move_to_element(organization_unit_button).click().perform()
         
     def get_organization_unit_header(self):
         organization_unit_header = WebDriverWait(self.driver, TIMEOUT).until(
@@ -55,7 +58,7 @@ class Profile:
         return first_name_text.text
 
     def edit_first_name(self, name):
-        input_field = WebDriverWait(self.driver, TIMEOUT).until(
+        input_field = WebDriverWait(self.driver, TIMEOUT*2).until(
             lambda driver: driver.find_element(*Locator.first_name_input))
         input_field.clear()
         input_field.send_keys(name) 

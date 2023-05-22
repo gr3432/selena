@@ -27,4 +27,4 @@ jobs:
         TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
         LOGIN_PAGE_URL: ${{ secrets.LOGIN_PAGE_URL }}
       run: |
-        pytest --noconftest -s test_foo.py
+        pytest --environment-secrets -s test_bar.py

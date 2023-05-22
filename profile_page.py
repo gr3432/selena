@@ -1,10 +1,11 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 
-TIMEOUT = 5
+TIMEOUT = 10
 
 
 class Locator():
@@ -23,8 +24,8 @@ class Profile:
         self.driver = driver
 
     def view_profile_details(self):
-        profile_details_button = self.driver.find_element(
-            *Locator.profile_details_button)
+        profile_details_button = WebDriverWait(self.driver, TIMEOUT).until(
+            EC.element_to_be_clickable(Locator.profile_details_button))
         profile_details_button.click()
 
     def get_profile_details_header(self):
@@ -33,8 +34,8 @@ class Profile:
         return profile_details_header.text
 
     def view_organization_unit(self):
-        organization_unit_button = self.driver.find_element(
-            *Locator.organization_unit_button)
+        organization_unit_button = WebDriverWait(self.driver, TIMEOUT).until(
+            EC.element_to_be_clickable(Locator.organization_unit_button))
         organization_unit_button.click()
         
     def get_organization_unit_header(self):
@@ -45,7 +46,8 @@ class Profile:
     def edit_profile(self):
         edit_profile_button = WebDriverWait(self.driver, TIMEOUT).until(
             EC.element_to_be_clickable(Locator.edit_profile_button))
-        edit_profile_button.click()
+        actions = ActionChains(self.driver)
+        actions.move_to_element(edit_profile_button).click().perform()
 
     def get_first_name_text(self):
         first_name_text = WebDriverWait(self.driver, TIMEOUT).until(

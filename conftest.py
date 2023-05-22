@@ -23,9 +23,9 @@ def pytest_addoption(parser):
 def pytest_configure(config):
     if config.getoption("--environment-secrets"):
         import os
-        pytest.test_email = os.environ['test_email']
-        pytest.test_password = os.environ['test_password']
-        pytest.login_page_url = os.environ['login_page_url']
+        pytest.test_email = os.environ['TEST_EMAIL']
+        pytest.test_password = os.environ['TEST_PASSWORD']
+        pytest.login_page_url = os.environ['LOGIN_PAGE_URL']
     else:
         from constants import test_email, test_password, login_page_url
         pytest.test_email = test_email

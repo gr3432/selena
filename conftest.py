@@ -9,6 +9,14 @@ from login_page import Login
 from base_page import Basepage
 
 
+def pytest_addoption(parser):
+    parser.addoption(
+        "--headless",
+        action = "store_true",
+        help = "Run driver in headless mode"
+    )
+
+
 @pytest.fixture(scope="session")
 def driver_already_opened():  
     options = Options()
@@ -21,9 +29,12 @@ def driver_already_opened():
     return driver
 
 @pytest.fixture(scope="session")
-def driver_with_login():
+def driver_with_login(request):
+    options = Options()
+    if request.config.getoption("--headless"):
+        options.add_argument("--headless")
     service = Service(EdgeChromiumDriverManager().install())
-    driver = webdriver.Edge(service=service)
+    driver = webdriver.Edge(service=service, options=options)
 
     driver.maximize_window()
     driver.get(login_page_url)

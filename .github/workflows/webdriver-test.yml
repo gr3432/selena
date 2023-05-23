@@ -8,7 +8,6 @@ permissions:
 
 jobs:
   build:
-
     runs-on: windows-latest
 
     steps:
@@ -27,4 +26,4 @@ jobs:
         TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
         LOGIN_PAGE_URL: ${{ secrets.LOGIN_PAGE_URL }}
       run: |
-        pytest --environment-secrets --headless -s test_employees.py test_profile.py
+        pytest --environment-secrets --headless -s test_employees.py

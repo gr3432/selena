@@ -39,15 +39,16 @@ class Profile:
 
     def edit_first_name(self, name):
         time.sleep(2)
-        parent_loc = (By.XPATH, "//app-profile-details-info-card/app-details-info-card/div/div[2]/div/app-profile-details-form/div[1]/app-text-input[1]")
-        parent = WebDriverWait(self.driver, TIMEOUT).until(
-            lambda driver: driver.find_element(*parent_loc))
-        print(parent.get_attribute("innerHTML"))
-
-        input_field = WebDriverWait(self.driver, TIMEOUT).until(
-            lambda driver: driver.find_element(*Locator.first_name_input))
-        input_field.clear()
-        input_field.send_keys(name) 
+        try:
+            input_field = WebDriverWait(self.driver, TIMEOUT).until(
+                lambda driver: driver.find_element(*Locator.first_name_input))
+            input_field.clear()
+            input_field.send_keys(name) 
+        except TimeoutException:
+            parent_loc = (By.XPATH, "//app-profile-details-info-card/app-details-info-card/div/div[2]/div/app-profile-details-form/div[1]/app-text-input[1]")
+            parent = WebDriverWait(self.driver, TIMEOUT).until(
+                lambda driver: driver.find_element(*parent_loc))
+            print(parent.get_attribute("innerHTML"))
     
     def save_profile(self):
         # clickable means also enabled

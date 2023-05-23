@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class Locator:
@@ -9,6 +10,9 @@ class Locator:
 
 
 class LeftNavigationBar:
+    """
+    Representation of the Left Navigation Bar
+    """
     def __init__(self, driver):
         self.driver = driver
 
@@ -19,9 +23,9 @@ class LeftNavigationBar:
     def navigate_to_employees(self):
         organization_button = self.driver.find_element(*Locator.organization_button)
         if not "open" in organization_button.find_element(By.XPATH, "./div[2]").get_attribute("class"):
-            organization_button.click()
+            ActionChains(self.driver).move_to_element(organization_button).click().perform()
         organization_submenu = self.driver.find_element(*Locator.organization_submenu)
         if "opacity: 0" in organization_submenu.get_attribute("style"):
-            organization_button.click()
+            ActionChains(self.driver).move_to_element(organization_button).click().perform()
         employees_button = self.driver.find_element(*Locator.employees_button)
         employees_button.click()

@@ -16,6 +16,9 @@ class Locators:
 
 
 class Login:
+    """
+    Representation of the Login pages
+    """
     def __init__(self, driver):
         self.driver = driver
 

@@ -17,6 +17,9 @@ class Locators:
 
 
 class Employees:
+    """
+    Representation of the Employees list page
+    """
     def __init__(self, driver):
         self.driver = driver
 
@@ -30,7 +33,7 @@ class Employees:
             lambda driver: driver.find_element(*Locators.search_input))
         search_input.clear()
         search_input.send_keys(query)
-        search_input.send_keys(Keys.RETURN) # needed?
+        search_input.send_keys(Keys.RETURN)
 
     def find_name_in_table(self, name):
         table_xpath = Locators.table[1]

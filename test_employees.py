@@ -1,5 +1,5 @@
-from employess_page import Employees
 import pytest
+from employess_page import Employees
 from left_navigation_bar import LeftNavigationBar
 
 
@@ -9,6 +9,11 @@ non_existing_name = "Bob"
 
 @pytest.fixture(scope="module")
 def get_employees_page(driver):
+    """
+    Workaround to navigate to employees list page
+    since loading directly from url would require re-login.
+    After tests in this module are finished, return to dashboard page.
+    """
     left_navigation_bar = LeftNavigationBar(driver)
     left_navigation_bar.navigate_to_employees()
     yield
@@ -17,6 +22,15 @@ def get_employees_page(driver):
 
 @pytest.fixture(scope="function")
 def page(driver, get_employees_page):
+    """
+    Set up and Tear down code for every test
+
+    Set up should load profile details page, but since cookies do not work
+    use get_profile_page workaround.
+
+    Tear down contains clean up code in case something went wrong with the test 
+    to ensure that the state of the app is the same as when test started.
+    """
     employees_page = Employees(driver)
     yield employees_page
     employees_page.search("")

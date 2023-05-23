@@ -8,6 +8,9 @@ class Locators:
     top_bar_header = (By.XPATH, "//app-top-bar/mat-toolbar/div[1]/span")
 
 class Basepage:
+    """
+    Representation of the basic elements of the app
+    """
     def __init__(self, driver):
         self.driver = driver
 

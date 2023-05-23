@@ -96,9 +96,9 @@ def driver_already_opened():
     It will use an already opened browser and it will not close browser after
     test session is finished.
     """
-    options = Options()
+    options = EdgeOptions()
     options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
-    service = Service(EdgeChromiumDriverManager().install())
+    service = EdgeService(EdgeChromiumDriverManager().install())
     driver = webdriver.Edge(service=service, options=options)
     
     return driver
@@ -113,7 +113,7 @@ def driver_with_cookies():
     with open("cookies.pkl", "rb") as f:
         cookies = pickle.load(f)
 
-    service = Service(EdgeChromiumDriverManager().install())
+    service = EdgeService(EdgeChromiumDriverManager().install())
     driver = webdriver.Edge(service=service)
 
     driver.get(pytest.login_page_url)

@@ -3,6 +3,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+import time
 
 
 TIMEOUT = 10
@@ -37,6 +38,7 @@ class Profile:
         return first_name_text.text
 
     def edit_first_name(self, name):
+        time.sleep(2)
         parent_loc = (By.XPATH, "//app-profile-details-info-card/app-details-info-card/div/div[2]/div/app-profile-details-form/div[1]/app-text-input[1]")
         parent = WebDriverWait(self.driver, TIMEOUT).until(
             lambda driver: driver.find_element(*parent_loc))

@@ -48,9 +48,11 @@ def page(driver, get_profile_page):
     reset_page(driver)
 
 
-# last name should always be the existing name so the test does not change data
+########## Test Cases ##########
 @pytest.mark.parametrize("name", ["Björn", "Mary-Kate", "Adam"])
 def test_edit_first_name(page, name):
+    # last name in the list should always be the existing name 
+    # so the test does not change data
     page.edit_profile()
     page.edit_first_name(name)
     assert page.save_profile()
@@ -64,10 +66,9 @@ def test_leave_first_name_empty(page):
     reset_page(page.driver)
     assert page.get_first_name_text() == "Adam"
 
-@pytest.mark.parametrize("name", ["A"])
-def test_invalid_first_names(page, name):
+def test_interrupt_editing_first_name(page):
     page.edit_profile()
-    page.edit_first_name(name)
-    assert page.save_profile()
+    page.edit_first_name("Nick")
+    reset_page(page.driver)
     assert page.get_first_name_text() == "Adam"
     

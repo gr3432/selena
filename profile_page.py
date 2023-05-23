@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
@@ -31,6 +32,7 @@ class Profile:
             EC.element_to_be_clickable(Locator.edit_profile_button))
         actions = ActionChains(self.driver)
         actions.move_to_element(edit_profile_button).click().perform()
+        ActionBuilder(self.driver).clear_actions()
 
     def get_first_name_text(self):
         first_name_text = WebDriverWait(self.driver, TIMEOUT).until(
@@ -38,7 +40,6 @@ class Profile:
         return first_name_text.text
 
     def edit_first_name(self, name):
-        time.sleep(2)
         try:
             input_field = WebDriverWait(self.driver, TIMEOUT).until(
                 lambda driver: driver.find_element(*Locator.first_name_input))
@@ -49,6 +50,7 @@ class Profile:
             parent = WebDriverWait(self.driver, TIMEOUT).until(
                 lambda driver: driver.find_element(*parent_loc))
             print(parent.get_attribute("innerHTML"))
+            raise TimeoutException
     
     def save_profile(self):
         # clickable means also enabled

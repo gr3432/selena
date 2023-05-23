@@ -1,0 +1,6 @@
+{
+    "test_email" : "test_email",
+    "test_password": "test_password",
+    "login_page_url": "login_page_url",
+    "landing_page_url": "landing_page_url"
+}

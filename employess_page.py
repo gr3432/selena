@@ -1,3 +1,4 @@
+import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
@@ -13,6 +14,8 @@ class Locators:
     search_input = (By.XPATH, "//input[@placeholder='Enter keyword to search...']")
     result_table_names = "//mat-table[@role='table']//mat-row//mat-cell[2]//span"
     table = (By.XPATH, "//app-universal-table/div/div/mat-table")
+    # relative to table
+    name_in_table = (By.XPATH, "./mat-row/mat-cell[2]/span")
 
 
 
@@ -34,6 +37,7 @@ class Employees:
         search_input.clear()
         search_input.send_keys(query)
         search_input.send_keys(Keys.RETURN)
+        time.sleep(5)
 
     def find_name_in_table(self, name):
         table_xpath = Locators.table[1]
@@ -49,3 +53,9 @@ class Employees:
         names = self.find_name_in_table(name)
         assert len(names) == 1
         names[0].click()
+
+    def get_names_from_table(self):
+        table = WebDriverWait(self.driver, TIMEOUT).until(
+            lambda driver: driver.find_element(*Locators.table))
+        names = table.find_elements(*Locators.name_in_table)
+        return [name.text for name in names]

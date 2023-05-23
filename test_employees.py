@@ -3,10 +3,6 @@ from employess_page import Employees
 from left_navigation_bar import LeftNavigationBar
 
 
-existing_name = "Adam"
-non_existing_name = "Bob"
-
-
 @pytest.fixture(scope="module")
 def get_employees_page(driver):
     """
@@ -36,14 +32,19 @@ def page(driver, get_employees_page):
     employees_page.search("")
 
 
-def test_search_existing(page):
-    page.search(existing_name)
-    assert page.find_name_in_table(existing_name)
+########## Test Cases ##########
+def test_search_unique_match(page):
+    page.search("Adam")
+    assert page.get_names_from_table() == ["Adam"]
 
-def test_search_not_existing(page):
-    page.search(non_existing_name)
-    assert not page.find_name_in_table(non_existing_name)
+def test_search_no_matches(page):
+    page.search("Bob")
+    assert not page.get_names_from_table()
 
 def test_search_empty(page):
     page.search("")
-    assert page.find_name_in_table(existing_name)
+    assert page.get_names_from_table()
+
+def test_search_with_mulitple_matches(page):
+    page.search("Automation")
+    assert len(page.get_names_from_table()) > 1

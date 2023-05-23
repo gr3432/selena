@@ -11,6 +11,10 @@ def reset_profile_details_page(page):
     page.get_profile_details_header()
     assert page.get_profile_details_header() == "PROFILE DETAILS"
 
+def reset2(driver):
+    driver.back()
+    driver.forward()
+
 @pytest.fixture(scope="module")
 def get_profile_page(driver):
     # Set up
@@ -33,7 +37,8 @@ def page(driver, get_profile_page):
     # Tear down
     # in case something went wrong with the test
     # replace with page refresh when cookies work
-    reset_profile_details_page(profile_page)
+    # reset_profile_details_page(profile_page)
+    reset2(driver)
 
 
 # last name should always be the existing name so the test does not change data

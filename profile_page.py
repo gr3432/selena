@@ -58,7 +58,7 @@ class Profile:
         return first_name_text.text
 
     def edit_first_name(self, name):
-        input_field = WebDriverWait(self.driver, TIMEOUT*2).until(
+        input_field = WebDriverWait(self.driver, TIMEOUT).until(
             lambda driver: driver.find_element(*Locator.first_name_input))
         input_field.clear()
         input_field.send_keys(name) 

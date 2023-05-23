@@ -1,3 +1,4 @@
+import time
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
@@ -27,6 +28,7 @@ class Profile:
     def edit_profile(self):        
         actions = ActionChains(self.driver)
         actions.move_to_element(self.edit_profile_button).click().perform()
+        time.sleep(5)
 
     def get_first_name_text(self):
         first_name_text = WebDriverWait(self.driver, TIMEOUT).until(

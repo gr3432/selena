@@ -4,14 +4,7 @@ from left_navigation_bar import LeftNavigationBar
 from employess_page import Employees
 
 
-def reset_profile_details_page(page):
-    page.view_organization_unit()
-    assert page.get_organization_unit_header() == "ORGANIZATION UNIT"
-    page.view_profile_details()
-    page.get_profile_details_header()
-    assert page.get_profile_details_header() == "PROFILE DETAILS"
-
-def reset2(driver):
+def reset_page(driver):
     driver.back()
     driver.forward()
 
@@ -37,8 +30,7 @@ def page(driver, get_profile_page):
     # Tear down
     # in case something went wrong with the test
     # replace with page refresh when cookies work
-    # reset_profile_details_page(profile_page)
-    reset2(driver)
+    reset_page(driver)
 
 
 # last name should always be the existing name so the test does not change data
@@ -54,7 +46,7 @@ def test_leave_first_name_empty(page):
     page.edit_profile()
     page.edit_first_name("")
     assert not page.save_profile()
-    reset_profile_details_page(page)
+    reset_page(page.driver)
     assert page.get_first_name_text() == "Adam"
 
 @pytest.mark.parametrize("name", ["A"])

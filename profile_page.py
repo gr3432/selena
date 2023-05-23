@@ -33,6 +33,7 @@ class Profile:
         actions = ActionChains(self.driver)
         actions.move_to_element(edit_profile_button).click().perform()
         ActionBuilder(self.driver).clear_actions()
+        time.sleep(2)
         save_profile_button = WebDriverWait(self.driver, TIMEOUT).until(
                 EC.element_to_be_clickable(Locator.save_profile_button))
 

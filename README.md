@@ -12,8 +12,13 @@ Testing web application with Selenium using Page Object Model.
 5. Fill in user email, user password and login page url in constants.json.
 
 ## How to run
+### Run all the tests
 Just run pytest inside the virtual environment.
   > pytest
 
+### Run a subset of tests
 To run only tests from one module specify the name of the module after pytest. For example:
   > pytest test_employees.py
+
+## Continuous Integration
+See Actions tab on GitHub. Runs are triggered manually. Workflow description in .github/workflows/webdriver-test.yml.

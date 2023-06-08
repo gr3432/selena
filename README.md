@@ -1,5 +1,5 @@
 # selena
-Testing web application with Selenium.
+Testing web application with Selenium using Page Object Model.
 
 ## Prerequisites
 1. Install python from https://www.python.org/. Code has been tested with python version 3.8 and 3.10.
